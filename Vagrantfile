@@ -11,15 +11,17 @@ Vagrant::Config.run do |config|
   config.ssh.max_tries = 40
   config.ssh.timeout   = 120
 
-  config.vm.provision :collectd1 do |chef|
-    chef.vm.network :hostonly, "11.11.11.11"
-    chef.vm.host_name = "collectd1"
-    chef.json = {
-    }
-    chef.run_list = [
-      "recipe[minitest-handler]",
-      "recipe[collectd::default]",
-      "recipe[collectd::test]"
-    ]
+  config.vm.define :collectd1 do |c|
+    c.vm.network :hostonly, "11.11.11.11"
+    c.vm.host_name = "collectd1"
+    c.vm.provision :collectd1 do |chef|
+      chef.json = {
+      }
+      chef.run_list = [
+        "recipe[minitest-handler]",
+        "recipe[collectd::default]",
+        "recipe[collectd::test]"
+      ]
+    end
   end
 end
