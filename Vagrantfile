@@ -14,7 +14,7 @@ Vagrant::Config.run do |config|
   config.vm.define :collectd1 do |c|
     c.vm.network :hostonly, "11.11.11.11"
     c.vm.host_name = "collectd1"
-    c.vm.provision :collectd1 do |chef|
+    c.vm.provision :chef_solo do |chef|
       chef.json = {
       }
       chef.run_list = [
