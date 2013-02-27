@@ -7,7 +7,7 @@ Vagrant::Config.run do |config|
   config.vm.boot_mode = :headless # or :gui
   config.vm.customize ["modifyvm", :id, "--memory", 512]
   config.vm.customize ["modifyvm", :id, "--cpus", 1]
-  #config.vm.network :bridged
+  config.vm.network :bridged
   config.ssh.max_tries = 40
   config.ssh.timeout   = 120
 
@@ -18,9 +18,9 @@ Vagrant::Config.run do |config|
       chef.json = {
       }
       chef.run_list = [
-        "recipe[minitest-handler]",
-        "recipe[collectd::default]",
-        "recipe[collectd::test]"
+        "recipe[collectd::test]",
+        "recipe[collectd::client]",
+        "recipe[minitest-handler]"
       ]
     end
   end
